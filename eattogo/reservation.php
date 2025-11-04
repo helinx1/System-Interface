@@ -199,7 +199,7 @@ if ($specialStatus !== "None") {
         <h2>Reservation</h2>
         <form action="reservation_details.php" method="POST">
             <label for="date">Date:</label>
-            <input type="date" name="date" id="date" required>
+            <input type="date" name="date" id="date" min="<?php echo date('Y-m-d'); ?>" required>
 
             <label for="time">Time:</label>
             <input type="time" name="time" id="time" required>
@@ -228,5 +228,6 @@ if ($specialStatus !== "None") {
         </form>
     </div>
 </body>
+
 
 </html>
