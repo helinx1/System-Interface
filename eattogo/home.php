@@ -27,6 +27,17 @@ ob_start(); // Prevents header issues and ensures session works
       -ms-overflow-style: none;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
     body::-webkit-scrollbar {
       display: none;
     }
@@ -167,7 +178,7 @@ ob_start(); // Prevents header issues and ensures session works
       font-family: "Playfair Display", serif;
       font-size: 1.6rem;
       letter-spacing: 0.5px;
-      color: #ffd166;
+      color: #FFCE1B;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     }
 
