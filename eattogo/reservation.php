@@ -133,6 +133,12 @@ if ($specialStatus !== "None") {
         border-color: rgba(255, 209, 102, 0.6);
     }
 
+    #people {
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 209, 102, 0.5);
+        box-shadow: 0 2px 8px rgba(255, 209, 102, 0.1);
+    }
+
     .parking-row {
         display: flex;
         align-items: center;
@@ -197,15 +203,27 @@ if ($specialStatus !== "None") {
 <body>
     <div class="reservation-container">
         <h2>Reservation</h2>
+        <?php if (isset($_GET['error'])): ?>
+            <?php if ($_GET['error'] === 'invalid_date'): ?>
+                <p style="color: #ff6b6b; text-align: center; margin-bottom: 10px;">Invalid date selected. Please choose a date in the current year that is not in the past.</p>
+            <?php elseif ($_GET['error'] === 'invalid_time'): ?>
+                <p style="color: #ff6b6b; text-align: center; margin-bottom: 10px;">Invalid time selected. Please choose a time between 9:00 AM and 10:00 PM.</p>
+            <?php endif; ?>
+        <?php endif; ?>
         <form action="reservation_details.php" method="POST">
             <label for="date">Date:</label>
-            <input type="date" name="date" id="date" required>
+            <input type="date" name="date" id="date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-31'); ?>" required>
 
             <label for="time">Time:</label>
-            <input type="time" name="time" id="time" required>
+            <input type="time" name="time" id="time" min="09:00" max="22:00" required>
 
             <label for="people">Number of People:</label>
-            <input type="number" name="people" id="people" min="1" required>
+            <select name="people" id="people" required>
+                <option value="" disabled selected>Select number of people</option>
+                <?php for ($i = 1; $i <= 20; $i++): ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i == 1 ? '1 person' : $i . ' people'; ?></option>
+                <?php endfor; ?>
+            </select>
 
             <div class="parking-row">
                 <label>Parking Required:</label>
