@@ -14,8 +14,30 @@ if (isset($_GET['res_id'])) {
 
 // Get reservation form data from POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $_SESSION['reservation_date'] = $_POST['date'];
-  $_SESSION['reservation_time'] = $_POST['time'];
+  $selected_date = $_POST['date'];
+  $current_year = date('Y');
+  $today = date('Y-m-d');
+
+  // Validate that the date is in the current year and not in the past
+  if (date('Y', strtotime($selected_date)) !== $current_year || $selected_date < $today) {
+    // Invalid date: redirect back to reservation.php with error
+    header("Location: reservation.php?error=invalid_date");
+    exit();
+  }
+
+  $selected_time = $_POST['time'];
+  $min_time = '09:00';
+  $max_time = '22:00';
+
+  // Validate that the time is within restaurant open hours
+  if ($selected_time < $min_time || $selected_time > $max_time) {
+    // Invalid time: redirect back to reservation.php with error
+    header("Location: reservation.php?error=invalid_time");
+    exit();
+  }
+
+  $_SESSION['reservation_date'] = $selected_date;
+  $_SESSION['reservation_time'] = $selected_time;
   $_SESSION['number_of_people'] = $_POST['people'];
   $_SESSION['parking_required'] = $_POST['parking'];
   $dietary = isset($_POST['dietary']) ? trim($_POST['dietary']) : '';
