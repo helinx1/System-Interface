@@ -129,10 +129,10 @@
     <h2>Log In</h2>
     <form action="login_process.php" method="POST">
       <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="password" placeholder="Password" required>
+      <input type="password" name="password" placeholder="Password" required>
       <button type="submit">Login</button>
     </form>
-  <a href="reset_password.php">Forgot Password?</a>
+  <a href="reset_password.php">Reset Password</a>
     <a href="signup.php">Don't have an account? Sign up</a>
   </div>
 </body>
